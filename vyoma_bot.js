@@ -874,23 +874,17 @@
   /* ═══════════════════════════════════════════════════════════
      AUTO-TRIGGER  — 5 s of active tab time, once per session
   ═══════════════════════════════════════════════════════════ */
-  function setupAutoTrigger() {
-    try {
-      var KEY = 'vyoma_triggered';
-      if (sessionStorage.getItem(KEY)) return;
-      var timer = null;
-      function arm() {
-        if (timer !== null) return;
-        timer = setTimeout(function () {
-          try { if (!sessionStorage.getItem(KEY)) { sessionStorage.setItem(KEY, '1'); openChat(); } } catch(e) {}
-        }, 5000);
-      }
-      function disarm() { if (timer !== null) { clearTimeout(timer); timer = null; } }
-      if (document.visibilityState === 'visible') arm();
-      document.addEventListener('visibilitychange', function () {
-        document.visibilityState === 'visible' ? arm() : disarm();
-      });
-    } catch(e) { console.warn('[VyomaBot] setupAutoTrigger error:', e); }
-  }
+ function setupAutoTrigger() {
+  try {
+    console.log("Auto trigger initialized");
 
+    setTimeout(function () {
+      console.log("Opening chatbot after 5 sec");
+      openChat();
+    }, 5000);
+
+  } catch (e) {
+    console.warn('[VyomaBot] setupAutoTrigger error:', e);
+  }
+}
 })();
